@@ -31,7 +31,7 @@ public class TemaController {
 		
 	}
 	@GetMapping("/{id}")
-	public ResponseEntity<Tema> getById(@PathVariable long id){
+	public ResponseEntity<Tema> getById(@PathVariable(value = "id")long id){
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 		
@@ -49,7 +49,7 @@ public class TemaController {
     }
     @PutMapping
     public ResponseEntity<Tema> put (@RequestBody Tema tema){
-    	return ResponseEntity.ok(repository.save(tema));   	
+    	return ResponseEntity.status(HttpStatus.OK).body(repository.save(tema));   	
      			
     }
  
