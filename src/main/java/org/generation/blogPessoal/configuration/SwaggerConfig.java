@@ -18,14 +18,21 @@ public class SwaggerConfig {
 	@Bean
 	public OpenAPI springOpenAPI() {
 		return new OpenAPI()
-				.info(new Info().title("Projeto Blog Pessoal").description("Projeto Blog Pessoal - Generation Brasil")
+				.info(new Info()
+						.title("Projeto Blog Pessoal")
+						.description("Projeto Blog Pessoal - Generation Brasil")
 						.version("v0.0.1")
 						.license(new License().name("Generation Brazil").url("https://brazil.generation.org/"))
-						.contact(new Contact().name("Conteudo Generation").url("https://github.com/Samara-Alves")
+						.contact(new Contact()
+								.name("Conteudo Generation").url("https://github.com/Samara-Alves")
 								.email("samara_alves28@hotmail.com")))
 				.externalDocs(new ExternalDocumentation().description("Github")
-						.url("https://github.com/Samara-Alves/Projeto_Integrador_BeInclusive"));
+						.url("<https://github.com/Samara-Alves/blog_Pessoal>"));
 	}
+			private ApiResponse createApiResponse(String message) {
+				return new ApiResponse().description(message);
+		}
+	
 
 	@Bean
 	public OpenApiCustomiser customerGlobalHeaderOpenApiCustomiser() {
@@ -33,22 +40,17 @@ public class SwaggerConfig {
 		return openApi -> {
 			openApi.getPaths().values().forEach(pathItem -> pathItem.readOperations().forEach(operation -> {
 
-				ApiResponses apiResponses = operation.getResponses();
+				ApiResponses api = operation.getResponses();
 
-				apiResponses.addApiResponse("200", createApiResponse("Sucesso!"));
-				apiResponses.addApiResponse("201", createApiResponse("Objeto Persistido!"));
-				apiResponses.addApiResponse("204", createApiResponse("Objeto Excluído!"));
-				apiResponses.addApiResponse("400", createApiResponse("Erro na Requisição!"));
-				apiResponses.addApiResponse("401", createApiResponse("Acesso Não Autorizado!"));
-				apiResponses.addApiResponse("404", createApiResponse("Objeto Não Encontrado!"));
-				apiResponses.addApiResponse("500", createApiResponse("Erro na Aplicação!"));
+				api.addApiResponse("200", createApiResponse("Sucesso!"));
+				api.addApiResponse("201", createApiResponse("Objeto Persistido!"));
+				api.addApiResponse("204", createApiResponse("Objeto Excluído!"));
+				api.addApiResponse("400", createApiResponse("Erro na Requisição!"));
+				api.addApiResponse("401", createApiResponse("Acesso Não Autorizado!"));
+				api.addApiResponse("500", createApiResponse("Erro na Aplicação!"));
 
 			}));
 		};
 	}
 
-	private ApiResponse createApiResponse(String message) {
-
-		return new ApiResponse().description(message);
-}
 }

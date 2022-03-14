@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsuarioController {
 
 	@Autowired
-	private UsuarioService usuarioService;
+	private UsuarioService service;
 
 	@Autowired
 	private UsuarioRepository repository;
@@ -46,20 +46,22 @@ public class UsuarioController {
 
 	@PostMapping("/logar")
 	public ResponseEntity<UserLogin> Autentication(@RequestBody Optional<UserLogin> user) {
-		return usuarioService.Logar(user).map(resp -> ResponseEntity.ok(resp))
+		return service.Logar(user)
+				.map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 
 	}
 
 	@PostMapping("/cadastrar")
-	public ResponseEntity<Usuario> Post(@RequestBody Usuario usuario) {
-		return usuarioService.cadastrarUsuario(usuario).map(resp -> ResponseEntity.status(201)
+	public ResponseEntity<Usuario> Post(@Valid @RequestBody Usuario usuario) {
+		return service.cadastrarUsuario(usuario)
+				.map(resp -> ResponseEntity.status(201)
 				.body(resp)).orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
 
 	@PutMapping("/atualizar")
 	public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario){		
-		return usuarioService.atualizarUsuario(usuario)
+		return service.atualizarUsuario(usuario)
 			.map(resp -> ResponseEntity.status(HttpStatus.OK).body(resp))
 			.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}

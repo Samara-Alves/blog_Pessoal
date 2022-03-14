@@ -1,6 +1,7 @@
 package org.generation.blogPessoal.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,10 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -25,21 +26,25 @@ public class Postagem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-    @NotNull
+    @NotBlank
     @Size(min = 5, max = 100)
 	private String titulo;
     
-    @NotNull
-    @Size(min = 10, max = 500)
+    @NotBlank
+    @Size(min = 10, max = 1000)
 	private String texto;
     
-    @Temporal(TemporalType.TIMESTAMP)
-	private Date date = new java.sql.Date(System.currentTimeMillis());
+    @UpdateTimestamp
+	private LocalDate data;
     
+        
     @ManyToOne
     @JsonIgnoreProperties("postagem")
     private Tema tema;
     
+    @ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
   	
 	public long getId() {
 		return id;
@@ -58,12 +63,10 @@ public class Postagem {
 	}
 	public void setTexto(String texto) {
 		this.texto = texto;
+	
 	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDate(LocalDate data) {
+		this.data = data;
 	}
 	
   	public Tema getTema() {
@@ -72,6 +75,18 @@ public class Postagem {
 	public void setTema(Tema tema) {
 		this.tema = tema;
 	
+	}
+	public LocalDate getData() {
+		return data;
+	}
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 
