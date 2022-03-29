@@ -33,6 +33,16 @@ public class Usuario {
 
 	@Size(max = 5000)
 	private String foto;
+	
+	private String tipo;
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 
 	@NotNull
 	@Email

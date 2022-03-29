@@ -6,14 +6,17 @@ public class UserLogin {
 	
 	private String nome;
 	
-	private String usuario;
-	
-	private String foto;
-	
+	private String usuario;	
+
 	private String senha;
 	
 	private String token;
 	
+	private String foto;
+	
+	private String tipo;
+	
+
 	public long getId() {
 		return id;
 	}
@@ -23,14 +26,7 @@ public class UserLogin {
 	}
 
 
-	public String getFoto() {
-		return foto;
-	}
-
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
-
+	
 	public String getNome() {
 		return nome;
 	}
@@ -62,7 +58,22 @@ public class UserLogin {
 	public void setToken(String token) {
 		this.token = token;
 	}
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
 	
 
 }
