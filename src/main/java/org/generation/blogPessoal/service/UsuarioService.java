@@ -48,11 +48,13 @@ public Optional<UserLogin> Logar(Optional<UserLogin> usuarioLogin){
 	if (usuario.isPresent()) {
 		if (compararSenhas(usuarioLogin.get().getSenha(), usuario.get().getSenha())) {
 			usuarioLogin.get().setId(usuario.get().getId());
+			usuarioLogin.get().setToken(generatorBasicToken(usuarioLogin.get().getUsuario(), usuarioLogin.get().getSenha()));
 			usuarioLogin.get().setNome(usuario.get().getNome());
+			usuarioLogin.get().setSenha(usuario.get().getSenha());
 			usuarioLogin.get().setFoto(usuario.get().getFoto());
 			usuarioLogin.get().setTipo(usuario.get().getTipo());
 			usuarioLogin.get().setToken(generatorBasicToken(usuarioLogin.get().getUsuario(), usuarioLogin.get().getSenha()));
-                            usuarioLogin.get().setSenha(usuario.get().getSenha());
+                            
 			return usuarioLogin;
 			}
 			
