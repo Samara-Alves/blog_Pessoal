@@ -47,13 +47,13 @@ public Optional<UserLogin> Logar(Optional<UserLogin> usuarioLogin){
 	Optional<Usuario> usuario = repository.findByUsuario(usuarioLogin.get().getUsuario());
 	if (usuario.isPresent()) {
 		if (compararSenhas(usuarioLogin.get().getSenha(), usuario.get().getSenha())) {
-			usuarioLogin.get().setId(usuario.get().getId());
 			usuarioLogin.get().setToken(generatorBasicToken(usuarioLogin.get().getUsuario(), usuarioLogin.get().getSenha()));
+			usuarioLogin.get().setId(usuario.get().getId());
 			usuarioLogin.get().setNome(usuario.get().getNome());
 			usuarioLogin.get().setSenha(usuario.get().getSenha());
 			usuarioLogin.get().setFoto(usuario.get().getFoto());
 			usuarioLogin.get().setTipo(usuario.get().getTipo());
-			usuarioLogin.get().setToken(generatorBasicToken(usuarioLogin.get().getUsuario(), usuarioLogin.get().getSenha()));
+			
                             
 			return usuarioLogin;
 			}
@@ -76,6 +76,6 @@ public Optional<UserLogin> Logar(Optional<UserLogin> usuarioLogin){
 		private String generatorBasicToken(String email, String password) {
 			String structure = email + ":" + password;
 			byte[] structureBase64 = Base64.encodeBase64(structure.getBytes(Charset.forName("US-ASCII")));
-			return "Basic  " + new String(structureBase64);
+			return "Basic " + new String(structureBase64);
 }
 }
